@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<data noupdate="0">
+    
+    <!-- Three personal rules for Portal users -->
+    
+    <record model="ir.rule" id="project_portal_rule_extended2">
+        <field name="name">Project: portal rule (extended2)</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">['|',
+    '&amp;', ('privacy_visibility_by_portal_clients', '=', True),
+    ('task_ids.partner_id', '=', user.partner_id.id),
+
+    '&amp;', ('privacy_visibility_by_portal_clients', '=', True),
+    ('issue_ids.partner_id', '=', user.partner_id.id)
+                                    ]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    
+    <record model="ir.rule" id="task_portal_rule_extended2">
+        <field name="name">Project/Task: portal rule (extended2)</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">[
+    ('project_id.privacy_visibility_by_portal_clients', '=', True),
+
+    ('partner_id', '=', user.partner_id.id)
+                                    ]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    
+    <record model="ir.rule" id="issue_portal_rule_extended2">
+        <field name="name">Project/Issue: portal rule (extended2)</field>
+        <field name="model_id" ref="project_issue.model_project_issue"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">[
+    ('project_id.privacy_visibility_by_portal_clients', '=', True),
+
+    ('partner_id', '=', user.partner_id.id)
+                                    ]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    
+</data>
+    
+</odoo>
